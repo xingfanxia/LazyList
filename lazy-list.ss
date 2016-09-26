@@ -26,7 +26,7 @@
   (lambda (LL n)
     (if (<= n 0)
        '()
-       (if (not(null? LL))
+       (if (not(null? LL)) ; or (if (pair? LL)) given LL is still a list
            (cons (car LL) (first-n ((cdr LL)) (- n 1)))
            '()))))
       
