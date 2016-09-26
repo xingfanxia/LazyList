@@ -26,5 +26,3 @@
         (nth (cdr LL) (- n 1)))))
 ; test case
 (nth '(1 2 3 4 5) 3)
-
-;kkkkkk
