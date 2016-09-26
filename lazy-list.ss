@@ -9,23 +9,22 @@
 ; If LL contains fewer than n values, return all of them.
 (define first-n
   (lambda (LL n)
-  	(if (> n (length LL))
-   		LL
-     	(if (= n 0)
-          '()
-          (cons (car LL) (first-n (cdr LL) (- n 1)))))))
+  	(if (<= n 0)
+       '()
+       (cons (car LL) (first-n ((cdr LL)) (- n 1))))))
      	
 ; test case
-(first-n '(1 2 3 4 5) 3)
+(first-n (lazy-infinite-range 100) 3)
+(first-n (lazy-infinite-range 100) 6)
 
 ; Compute the nth value in the lazy list LL. If LL contains fewer than n values, return #f.
 (define nth
   (lambda (LL n)
     (if (= n 1)
         (car LL)
-        (nth (cdr LL) (- n 1)))))
+        (nth ((cdr LL)) (- n 1)))))
 ; test case
-(nth '(1 2 3 4 5) 3)
+(nth (lazy-infinite-range 100) 3)
 
 (define not-divisible?
   (lambda (k)
@@ -39,6 +38,9 @@
 
 (define filter-lazy-list
   (lambda (f LL)
-    (if (f (car LL)) (cons (car LL) (lambda() (filter-lazy-list f (cdr LL)))))))
+    (if (f (car LL))
+        (cons (car LL)
+              (lambda() (filter-lazy-list f (cdr LL))))
+        '())))
 
 (filter-lazy-list (lambda (x) (= (modulo x 2) 0)) (lazy-infinite-range 1))
