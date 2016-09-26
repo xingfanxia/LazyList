@@ -4,16 +4,19 @@
 
 ; Example of lazy structure
 (define lazy-range 
-	(lambda (a b) 
-		(if (> a b)
-			'()
-			(cons a
-				(lambda () (lazy-range (+ a 1) b))))))
-
+  (lambda (a b) 
+    (if (> a b)
+      '()
+      (cons a
+        (lambda () (lazy-range (+ a 1) b))))))
+(define a (lazy-range 1 3))
+((cdr a))
+(define b ((cdr ((cdr a)))))
+((cdr b))
 ; Create a lazy list containing the infinite sequence of values a, a + 1, . . .
 (define lazy-infinite-range
   (lambda (a)
- 	(cons a (lambda () (lazy-infinite-range (+ a 1))))))
+  (cons a (lambda () (lazy-infinite-range (+ a 1))))))
 ; test case
 (lazy-infinite-range 100)
 
@@ -21,13 +24,17 @@
 ; If LL contains fewer than n values, return all of them.
 (define first-n
   (lambda (LL n)
-  	(if (<= n 0)
+    (if (<= n 0)
        '()
-       (cons (car LL) (first-n ((cdr LL)) (- n 1))))))
-     	
+       (if (not(null? LL))
+           (cons (car LL) (first-n ((cdr LL)) (- n 1)))
+           '()))))
+      
 ; test case
 (first-n (lazy-infinite-range 100) 3)
-(first-n (lazy-infinite-range 100) 6)
+(first-n (lazy-infinite-range 100) 9)
+(first-n (lazy-range 50 100) 100)
+
 
 ; Compute the nth value in the lazy list LL. If LL contains fewer than n values, return #f.
 (define nth
