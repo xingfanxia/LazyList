@@ -9,10 +9,12 @@
       '()
       (cons a
         (lambda () (lazy-range (+ a 1) b))))))
+; test case
 (define a (lazy-range 1 3))
 ((cdr a))
 (define b ((cdr ((cdr a)))))
 ((cdr b))
+
 ; Create a lazy list containing the infinite sequence of values a, a + 1, . . .
 (define lazy-infinite-range
   (lambda (a)
