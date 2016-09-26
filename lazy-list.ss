@@ -11,7 +11,18 @@
   (lambda (LL n)
   	(if (> n (length LL))
    		LL
-     	(cons (car LL) (first-n (cdr LL) (- n 1))))))
-;test case
+     	(if (= n 0)
+          '()
+          (cons (car LL) (first-n (cdr LL) (- n 1)))))))
+     	
+; test case
 (first-n '(1 2 3 4 5) 3)
 
+; Compute the nth value in the lazy list LL. If LL contains fewer than n values, return #f.
+(define nth
+  (lambda (LL n)
+    (if (= n 1)
+        (car LL)
+        (nth (cdr LL) (- n 1)))))
+; test case
+(nth '(1 2 3 4 5) 3)
