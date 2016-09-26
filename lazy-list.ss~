@@ -1,8 +1,3 @@
-; lazy-list.ss
-; Noah Brackenbury, Joey Long, Xingfan Xia
-; CS 251, Fall 16
-
-; Example of lazy structure
 (define lazy-range 
 	(lambda (a b) 
 		(if (> a b)
@@ -38,7 +33,7 @@
 ; test case
 (nth (lazy-infinite-range 100) 3)
 
-; A a higher-order function, so that applying not-divisible? to an argument k gives a predicate 
+; A a higher-order function, so that applying not-divisible? to an argument kgives a predicate 
 ; for non-divisibility by k.
 (define not-divisible?
   (lambda (k)
@@ -57,7 +52,7 @@
         (cons (car LL)
               (lambda() (filter-lazy-list f ((cdr LL)))))
         (filter-lazy-list f ((cdr LL))))))
-; test case
+
 (define a (filter-lazy-list (lambda (x) (= (modulo x 2) 0)) (lazy-infinite-range 10)))
 (define b (filter-lazy-list (lambda (x) (= (modulo x 5) 1)) (lazy-range 7 30)))
 
@@ -67,21 +62,7 @@
   (lambda (LL)
     (filter-lazy-list (not-divisible? (car LL)) ((cdr LL)))))
 ; test case
-(define c (not-divisible-LL (lazy-infinite-range 2)))
-(car c)
+(define c (not-divisible-LL (lazy-infinite-range 20)))
 ((cdr c))
 ((cdr((cdr c))))
-
-; Write a zero-argument function sieve that returns a lazy list representing all
-; prime numbers, starting at 2
-(define sieve
-  (lambda ()
-    (eratosthenes (lazy-infinite-range 2))))
-; helper function that takes input
-(define eratosthenes
-  (lambda (LL)
-    (cons (car LL) (lambda () (eratosthenes (not-divisible-LL LL))))))
-; test case
-(first-n (sieve) 10)
-(nth (sieve) 20)
-(nth (sieve) 100)
+((cdr((cdr((cdr c))))))
