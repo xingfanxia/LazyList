@@ -27,4 +27,12 @@
 ; test case
 (nth '(1 2 3 4 5) 3)
 
-;kkkkkk
+(define not-divisible?
+  (lambda (k)
+  (lambda (n) (if (= (modulo n k) 0) #t #f))))
+
+(not-divisible? 2)
+
+((not-divisible? 2) 3)
+
+((not-divisible? 2) 4)
