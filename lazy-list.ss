@@ -33,14 +33,14 @@
 ; test case
 (nth (lazy-infinite-range 100) 3)
 
+; A a higher-order function, so that applying not-divisible? to an argument kgives a predicate 
+; for non-divisibility by k.
 (define not-divisible?
   (lambda (k)
   (lambda (n) (if (= (modulo n k) 0) #f #t))))
-
+; test case
 (not-divisible? 2)
-
 ((not-divisible? 2) 3)
-
 ((not-divisible? 2) 4)
 
 ; Construct a new lazy list that represents (in order) every element x of LL such that (f x) is true. 
@@ -61,7 +61,7 @@
 (define not-divisible-LL
   (lambda (LL)
     (filter-lazy-list (not-divisible? (car LL)) ((cdr LL)))))
-;test case
+; test case
 (define c (not-divisible-LL (lazy-infinite-range 20)))
 ((cdr c))
 ((cdr((cdr c))))
