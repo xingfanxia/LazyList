@@ -14,12 +14,12 @@
              (mysort f (car(split L)))
              (mysort f (cadr(split L))))))))
 
+;function that split a list into 2 list containing its odd and even elements separately
 (define split
   (lambda (L)
     (cons (odd-indeces L) (cons (even-indeces L) '()))))
 
 ; Helper functions:
-
 ; mergesort based on given function f
 (define merge-based-on-f
   (lambda (f L1 L2)
@@ -43,6 +43,7 @@
              (merge-sort (odd-indeces L))
              (merge-sort (even-indeces L)))))))
 
+; merge two list together in order
 (define merge-list
   (lambda (L1 L2)
     (if (null? L2)
@@ -53,6 +54,7 @@
                 (cons (car L1) (merge-list (cdr L1) L2))
                 (cons (car L2) (merge-list (cdr L2) L1)))))))
 
+; get odd indeces of the given list and return a new list containing them
 (define odd-indeces
   (lambda (L)
     (if (null? L)
@@ -61,6 +63,7 @@
               (list (car L))
               (cons (car L) (odd-indeces (cdr (cdr L))))))))
 
+; get even indeces of the given list and return a new list containing them
 (define even-indeces
     (lambda (L)
       (if (null? L)
